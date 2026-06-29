@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BetZone - Friends Board</title>
+    <style>
+        body {font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; color: #333;}
+        header {background: #1a1a1a; color: #fff; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center;}
+        header h1 { margin: 0; font-size: 1.8rem; }
+        header p { margin: 5px 0 0 0; color: #aaa; }
+        .user-nav { text-align: right; color: #fff; }
+        .user-nav a { color: #ff4d4d; text-decoration: none; margin-left: 15px; font-weight: bold; }
+        .container {max-width: 1000px; margin: 20px auto; padding: 0 20px;}
+        .card {background: #fff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 20px; overflow: hidden;}
+        .card-header {display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #fafafa; border-bottom: 1px solid #ececec;}
+        .event {padding: 20px;}
+        .event-title {font-size: 1.2rem; margin: 0 0 10px;}
+        .event-details {margin-bottom: 15px; color: #666;}
+        button, input, select {font: inherit;}
+        .bet-form {display: grid; gap: 12px; max-width: 420px;}
+        input, select {padding: 12px; border: 1px solid #ddd; border-radius: 6px; background: #fff;}
+        button {padding: 12px 18px; border: none; border-radius: 6px; background: #0077cc; color: #fff; cursor: pointer; transition: background 0.2s;}
+        button:hover {background: #005fa3;}
+        footer {text-align: center; padding: 20px 0; color: #777;}
+        .result {margin-top: 15px; padding: 12px; border-radius: 8px; background: #eef7ff; color: #064073;}
+    </style>
+</head>
+<body>
+<header>
+    <div>
+        <h1>BetZone</h1>
+        <p>Friendly Predictions Board</p>
+    </div>
+    <div class="user-nav">
+        <span>Welcome, <strong>{{ username }}</strong></span>
+        <a href="/logout">Logout</a>
+    </div>
+</header>
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Live Prediction Board</h2>
+        </div>
+        <div class="event">
+            <div class="event-title">S.N.J.C.S.S Volleyball Finale</div>
+            <div class="event-details">Lock in your pick!</div>
+            <form id="betForm" class="bet-form">
+                <label>
+                    Select Team
+                    <select id="outcome">
+                        <option value="Blue Team">Blue Team</option>
+                        <option value="Green Team">Green Team</option>
+                    </select>
+                </label>
+                <label>
+                    Points Stake
+                    <input type="number" id="stake" min="1" value="10" />
+                </label>
+
+                <button type="button" id="placeBet">Lock in Prediction</button>
+                <div id="message" class="result" style="display:none;"></div>
+            </form>
+        </div>
+    </div>
+</main>
+<footer>
+    <p>BetZone • Tracking matches with friends.</p>
+</footer>
+
+<script>
+const outcomeSelect = document.getElementById('outcome');
+const stakeInput = document.getElementById('stake');
+const placeBetButton = document.getElementById('placeBet');
+const messageBox = document.getElementById('message');
+
+placeBetButton.addEventListener('click', async () => {
+    const selectedOption = outcomeSelect.options[outcomeSelect.selectedIndex];
+    const stake = parseFloat(stakeInput.value) || 0;
+    const outcomeText = selectedOption.value;
+
+    if (stake < 1) {
+        messageBox.style.display = 'block';
+        messageBox.style.background = '#ffebeb';
+        messageBox.style.color = '#990000';
+        messageBox.textContent = 'Please enter a valid prediction stake.';
+        return;
+    }
+
+    try {
+        const response = await fetch('/place_bet', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                stake: stake,
+                outcome: outcomeText
+            })
+        });
+
+        const result = await response.json();
+
+        messageBox.style.display = 'block';
+        if (result.success) {
+            messageBox.style.background = '#eef7ff';
+            messageBox.style.color = '#064073';
+            messageBox.textContent = result.message;
+        } else {
+            messageBox.style.background = '#ffebeb';
+            messageBox.style.color = '#990000';
+            messageBox.textContent = result.message;
+        }
+    } catch (error) {
+        messageBox.style.display = 'block';
+        messageBox.style.background = '#ffebeb';
+        messageBox.style.color = '#990000';
+        messageBox.textContent = 'Could not connect to backend server.';
+    }
+});
+</script>
+</body>
+</html>

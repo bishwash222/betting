@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BetZone - Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        .auth-card { background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 360px; }
+        h2 { margin-top: 0; color: #1a1a1a; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        button { width: 100%; padding: 12px; border: none; background: #0077cc; color: white; border-radius: 6px; font-size: 1rem; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #005fa3; }
+        p { text-align: center; color: #666; margin-top: 15px; }
+        a { color: #0077cc; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <h2>Login to BetZone</h2>
+        <form method="POST" action="/login">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>New user? <a href="/register">Create an account</a></p>
+    </div>
+</body>
+</html>
