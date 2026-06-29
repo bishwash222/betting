@@ -7,10 +7,10 @@ app = Flask(__name__)
 app.secret_key = 'super_secret_key_change_this_later'
 
 db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '#19Ai2027', # Replace with your local MySQL password
-    'database': 'betting_website'
+    'host': 'mysql-e50487f-bishwaahmagar456-ab13.l.aivencloud.com',
+    'user': 'avnadmin',
+    'password': 'AVNS_NyE3LkipxcfwNGInxJf', # Replace with your local MySQL password
+    'database': 'defaultdb'
 }
 
 def get_db_connection():
