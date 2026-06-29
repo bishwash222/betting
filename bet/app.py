@@ -11,7 +11,7 @@ db_config = {
     'user': 'avnadmin',
     'password': 'AVNS_NyE3LkipxcfwNGInxJf', # Replace with your local MySQL password
     'database': 'defaultdb'
-    'port':'11960'
+    'port':11960
     'ssl_disabled': False
 }
 
