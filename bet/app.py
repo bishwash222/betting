@@ -12,7 +12,7 @@ db_config = {
     'password': 'AVNS_NyE3LkipxcfwNGInxJf', # Replace with your local MySQL password
     'database': 'defaultdb'
     'port':'11960'
-    ssl_disabled': False
+    'ssl_disabled': False
 }
 
 def get_db_connection():
