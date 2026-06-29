@@ -10,8 +10,8 @@ db_config = {
     'host': 'mysql-e50487f-bishwaahmagar456-ab13.l.aivencloud.com',
     'user': 'avnadmin',
     'password': 'AVNS_NyE3LkipxcfwNGInxJf', # Replace with your local MySQL password
-    'database': 'defaultdb'
-    'port':11960
+    'database': 'defaultdb',
+    'port':11960,
     'ssl_disabled': False
 }
 
